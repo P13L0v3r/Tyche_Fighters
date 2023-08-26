@@ -1,0 +1,6 @@
+new Triangle(1797,2310,1799,color:0),
+new Triangle(1285,1797,1799,color:0),
+new Triangle(1285,1539,1797,color:0),
+new Triangle(774,1285,1287,color:0),
+new Triangle(1545,1287,1799,color:0),
+new Triangle(1287,1285,1799,color:0),
