@@ -289,15 +289,42 @@ new Triangle(1287,1285,1799,color:0),
         public string text;
         public byte size;
 
+        private List<Triangle> triangles;
+
         public Text(string text, byte size = 1)
         {
             this.text = text;
             this.size = size;
+            this.triangles = new List<Triangle>();
         }
 
         public List<Triangle> Draw()
         {
             throw new NotImplementedException();
+        }
+
+        private void Add_0(byte index)
+        {
+            triangles.Add(new Triangle((ushort)(523 * size), (ushort)(10 * size), (ushort)(514 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(1034 * size), (ushort)(1547 * size), (ushort)(1036 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(1 * size), (ushort)(514 * size), (ushort)(10 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(523 * size), (ushort)(1034 * size), (ushort)(1036 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(1538 * size), (ushort)(1547 * size), (ushort)(1034 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(1025 * size), (ushort)(1538 * size), (ushort)(1034 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(514 * size), (ushort)(1 * size), (ushort)(512 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(512 * size), (ushort)(1025 * size), (ushort)(514 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(266 * size), (ushort)(523 * size), (ushort)(1282 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(1025 * size), (ushort)(266 * size), (ushort)(1282 * size), color: 255));
+        }
+
+        private void Add_percent(byte index)
+        {
+            triangles.Add(new Triangle((ushort)(769 * size), (ushort)(1282 * size), (ushort)(771 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(771 * size), (ushort)(1282 * size), (ushort)(1284 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(264 * size), (ushort)(777 * size), (ushort)(266 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(266 * size), (ushort)(777 * size), (ushort)(779 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(0 * size), (ushort)(1546 * size), (ushort)(2 * size), color: 255));
+            triangles.Add(new Triangle((ushort)(2 * size), (ushort)(1546 * size), (ushort)(1548 * size), color: 255));
         }
     }
 }
