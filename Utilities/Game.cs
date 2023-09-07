@@ -19,6 +19,9 @@ namespace TycheFighters
         public int screenWidth = 256;
         public int screenHeight = 256;
 
+        public float shakeStrength = 0f;
+        public byte shakeFrame = 0;
+
         private List<Triangle> triangles = new List<Triangle>();
 
         public void MapTriangles()
@@ -30,16 +33,16 @@ namespace TycheFighters
 
             for (int i = 0; i < triangles.Count; i++)
             {
-                vertices[i*9] = (triangles[i].worldCoords[0] - 128f) * scale / (screenWidth / 2.0f);
-                vertices[i*9 + 1] = (triangles[i].worldCoords[1] - 128f) * scale / (screenHeight / 2.0f);
+                vertices[i*9] = (triangles[i].worldCoords[0] - 128f - shakeStrength * MathF.Cos(shakeFrame)) * scale / (screenWidth / 2.0f);
+                vertices[i*9 + 1] = (triangles[i].worldCoords[1] - 128f - shakeStrength * MathF.Cos(shakeFrame)) * scale / (screenHeight / 2.0f);
                 vertices[i*9 + 2] = triangles[i].color / 255f;
 
-                vertices[i*9 + 3] = (triangles[i].worldCoords[2] - 128f) * scale / (screenWidth / 2.0f);
-                vertices[i*9 + 4] = (triangles[i].worldCoords[3] - 128f) * scale / (screenHeight / 2.0f);
+                vertices[i*9 + 3] = (triangles[i].worldCoords[2] - 128f - shakeStrength * MathF.Cos(shakeFrame)) * scale / (screenWidth / 2.0f);
+                vertices[i*9 + 4] = (triangles[i].worldCoords[3] - 128f - shakeStrength * MathF.Cos(shakeFrame)) * scale / (screenHeight / 2.0f);
                 vertices[i*9 + 5] = triangles[i].color / 255f;
 
-                vertices[i*9 + 6] = (triangles[i].worldCoords[4] - 128f) * scale / (screenWidth / 2.0f);
-                vertices[i*9 + 7] = (triangles[i].worldCoords[5] - 128f) * scale / (screenHeight / 2.0f);
+                vertices[i*9 + 6] = (triangles[i].worldCoords[4] - 128f - shakeStrength * MathF.Cos(shakeFrame)) * scale / (screenWidth / 2.0f);
+                vertices[i*9 + 7] = (triangles[i].worldCoords[5] - 128f - shakeStrength * MathF.Cos(shakeFrame)) * scale / (screenHeight / 2.0f);
                 vertices[i*9 + 8] = triangles[i].color / 255f;
             }
         }

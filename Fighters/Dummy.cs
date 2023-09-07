@@ -18,10 +18,13 @@ namespace TycheFighters
         }
 
         public override byte damage { get; protected set; } = 0;
-        public override byte weight { get; protected set; } = 5;
+        public override byte weight { get; init; } = 5;
 
-        public override byte width { get; protected set; } = 32;
-        public override byte height { get; protected set; } = 32;
+        public override byte width { get; init; } = 32;
+        public override byte height { get; init; } = 32;
+
+        protected override Keys[] P1map { get; init; } = { };
+        protected override Keys[] P2map { get; init; } = { };
 
         public override void ReadKeyboard(KeyboardState keyState)
         {

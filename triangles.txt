@@ -1,10 +1,4 @@
-triangles.Add(new Triangle((ushort)(523*index),(ushort)(10*index),(ushort)(514*index),color:255));
-triangles.Add(new Triangle((ushort)(1034*index),(ushort)(1547*index),(ushort)(1036*index),color:255));
-triangles.Add(new Triangle((ushort)(1*index),(ushort)(514*index),(ushort)(10*index),color:255));
-triangles.Add(new Triangle((ushort)(523*index),(ushort)(1034*index),(ushort)(1036*index),color:255));
-triangles.Add(new Triangle((ushort)(1538*index),(ushort)(1547*index),(ushort)(1034*index),color:255));
-triangles.Add(new Triangle((ushort)(1025*index),(ushort)(1538*index),(ushort)(1034*index),color:255));
-triangles.Add(new Triangle((ushort)(514*index),(ushort)(1*index),(ushort)(512*index),color:255));
-triangles.Add(new Triangle((ushort)(512*index),(ushort)(1025*index),(ushort)(514*index),color:255));
-triangles.Add(new Triangle((ushort)(266*index),(ushort)(523*index),(ushort)(1282*index),color:255));
-triangles.Add(new Triangle((ushort)(1025*index),(ushort)(266*index),(ushort)(1282*index),color:255));
+new Triangle(7708,7714,7202,color:26),
+new Triangle(6428,6434,5922,color:26),
+new Triangle(7196,7708,7202,color:26),
+new Triangle(5916,6428,5922,color:26),

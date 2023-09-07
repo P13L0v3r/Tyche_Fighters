@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj": {}
+    "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj": {}
   },
   "projects": {
-    "c:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj": {
+    "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
+        "projectUniqueName": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
         "projectName": "MemoryFightingGame",
-        "projectPath": "c:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
+        "projectPath": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
         "packagesPath": "C:\\Users\\pielo\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\pielo\\Documents\\Tyche_Fighters\\obj\\",
+        "outputPath": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pielo\\AppData\\Roaming\\NuGet\\NuGet.Config"

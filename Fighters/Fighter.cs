@@ -10,13 +10,17 @@ namespace TycheFighters
     public abstract class Fighter
     {
         public abstract byte damage { get; protected set; }
-        public abstract byte weight { get; protected set; }
-        public abstract byte width { get; protected set; }
-        public abstract byte height { get; protected set; }
-        public byte id { get; protected set; }
+        public abstract byte weight { get; init; }
+        public abstract byte width { get; init; }
+        public abstract byte height { get; init; }
+        protected abstract Keys[] P1map { get; init; }
+        protected abstract Keys[] P2map { get; init; }
+        public byte id { get; init; }
         public ushort position { get; protected set; }
+        public bool flipped = false;
         public Collider hitBox { get; protected set; }
         public Frame currentFrame { get; protected set; }
+        public bool knockedOut = false;
         public List<Collider> colliders;
         protected Random localRandom;
 
@@ -24,14 +28,17 @@ namespace TycheFighters
         {
             this.id = id;
             this.position = PackWorldCoords(startX, STAGE_FLOOR_HEIGHT);
-            this.hitBox = new Collider(0, Array.Empty<Triangle>());
+            this.hitBox = new Collider(0, Array.Empty<Triangle>()){owner = this};
             this.localRandom = new Random();
             this.colliders = new List<Collider>(){ hitBox };
         }
 
         public abstract void ReadKeyboard(KeyboardState keyState);
 
-        public abstract void Update();
+        public virtual void Update()
+        {
+            Launch();
+        }
 
         public abstract void Collision(Collider internalCollider, Collider externalCollider);
 
@@ -40,7 +47,8 @@ namespace TycheFighters
             byte chance = (byte)Math.Clamp(localRandom.Next(256) * weight, 0, 255);
 
             GAME_INSTANCE.extras.Add(new Burst((ushort)(position - PackWorldCoords(6, 6) + PackWorldCoords((byte)localRandom.Next(width), (byte)localRandom.Next(height))), 5));
-
+            //GAME_INSTANCE.shakeFrame = 4;
+            GAME_INSTANCE.shakeStrength += attack;
             //GAME_INSTANCE.extras.Add(new Burst(position, 5));
 
             if (chance < damage)
@@ -53,9 +61,48 @@ namespace TycheFighters
             }
         }
 
+        private byte launchFrame = 0;
+        private ushort launchDirection = 0;
+
+        public void InitLaunch(sbyte x, sbyte y)
+        {
+            launchDirection = (ushort)((x << 8) | y);
+            launchFrame = 16;
+        }
+        public virtual void Launch()
+        {
+            if (launchFrame == 0)
+            {
+                return;
+            }
+
+            byte newX = (byte)(position >> 8);
+            byte newY = (byte)position;
+            newX = (byte)Math.Clamp(newX + (sbyte)(launchDirection >> 8) * launchFrame, 0, 255 - width);
+            newY = (byte)Math.Clamp(newY + (sbyte)launchDirection * launchFrame, STAGE_FLOOR_HEIGHT, 255 - height);
+            if (newX == 255-width || newX == 0)
+            {
+                launchDirection = (ushort)((-1 * (launchDirection >> 8) << 8) | (sbyte)launchDirection);
+            }
+
+            if (newY == 255-height || newY == STAGE_FLOOR_HEIGHT)
+            {
+                launchDirection = (ushort)((launchDirection >> 8) << 8 | (sbyte)(-1 * launchDirection));
+            }
+
+            position = PackWorldCoords( newX, newY );
+
+            launchFrame = (byte)Math.Max(launchFrame - 1, 0);
+
+            if (launchFrame == 0) fallFrame = 1;
+        }
+
+        protected byte fallFrame = 0;
+
         public virtual void Knockout()
         {
-            Console.WriteLine("KNOCKOUT");
+            this.knockedOut = true;
+            this.fallFrame = 1;
         }
 
         public List<Triangle> Draw()
@@ -65,10 +112,32 @@ namespace TycheFighters
 
             for(int i = 0; i < result.Length; i++)
             {
-                result[i] = currentFrame.triangles[i] + position;
+                result[i] = flipped ? currentFrame.triangles[i].Flip(width) + position : currentFrame.triangles[i] + position;
             }
 
             return result.ToList();
+        }
+
+        protected ushort scrollingSequence { get; set; } = 0;
+        protected Combo[] allComboes { get; init; } = { };
+        protected Action[] comboResults { get; init; } = { };
+
+        protected void AddKey(byte keyIndex)
+        {
+            scrollingSequence = (ushort)(scrollingSequence << 3 | keyIndex);
+        }
+
+        protected void CheckCombo()
+        {
+            for (byte i = 0; i < allComboes.Length; i++)
+            {
+                if (allComboes[i] == scrollingSequence)
+                {
+                    comboResults[i]();
+                    scrollingSequence = 0;
+                    return;
+                }
+            }
         }
     }
 
@@ -180,11 +249,11 @@ namespace TycheFighters
 
 public class Collider
 {
-    public readonly byte id;
+    public byte id { get; private set; }
     public byte attack;
     public ushort origin;
     private Triangle[] triangles;
-
+    public Fighter owner;
     public Collider(byte id, Triangle[] triangles, byte attack = 0, ushort origin = 0)
     {
         this.id = id;
@@ -207,5 +276,20 @@ public class Collider
             
         }
         return false;
+    }
+
+    public void Flag()
+    {
+        id |= 0b10000000;
+    }
+
+    public bool IsFlagged()
+    {
+        return (id & 0b10000000) == 0b10000000;
+    }
+
+    public void ClearFlag()
+    {
+        id &= 0b01111111;
     }
 }

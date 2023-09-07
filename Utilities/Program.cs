@@ -22,6 +22,13 @@ namespace TycheFighters
             }
         }
 
+        public static int Mask(int value)
+        {
+            int r = 0;
+            do { r <<= 3; r |= 0b111; } while ((value >>= 3) > 0);
+            return r;
+        }
+
         public const byte STAGE_FLOOR_HEIGHT = 32;
         public static byte[] MEM = new byte[65_536]; // 64 KB of RAM
         //public static ushort FIRST_EMPTY_INDEX = 0;

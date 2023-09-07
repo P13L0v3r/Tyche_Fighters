@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "apX8Z/JPjbkSZmJ+YlNCt4wgAmijBeHJXxFDahuaykfA2UMqD9zjLl993ldKe79Is6nPoT5Pd7Ihkc71TiAEqg==",
+  "dgSpecHash": "21MYZTCxJh38XNpBSaS9exDosOwaSkD5WJ8IJaX2pnziBVy/kymneRy3w2t3ql+417LR16mNem9OIu5kHKXoxA==",
   "success": true,
-  "projectFilePath": "c:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
+  "projectFilePath": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pielo\\.nuget\\packages\\opentk\\4.8.0\\opentk.4.8.0.nupkg.sha512",
     "C:\\Users\\pielo\\.nuget\\packages\\opentk.audio.openal\\4.8.0\\opentk.audio.openal.4.8.0.nupkg.sha512",

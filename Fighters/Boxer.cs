@@ -6,10 +6,13 @@ namespace TycheFighters
     public class Boxer : Fighter
     {
         public override byte damage { get; protected set; } = 0;
-        public override byte weight { get; protected set; } = 1;
+        public override byte weight { get; init; } = 1;
 
-        public override byte width { get; protected set; } = 32;
-        public override byte height { get; protected set; } = 32;
+        public override byte width { get; init; } = 32;
+        public override byte height { get; init; } = 32;
+
+        protected override Keys[] P1map { get; init; } = { Keys.W, Keys.A, Keys.D };
+        protected override Keys[] P2map { get; init; } = { Keys.Up, Keys.Left, Keys.Right };
 
         private byte speed = 5;
         private byte jumpSpeed = 3;
@@ -22,10 +25,16 @@ namespace TycheFighters
                     new Triangle(PackWorldCoords(24,0), PackWorldCoords(24,16), PackWorldCoords(8,16)),
                     new Triangle(PackWorldCoords(24,0), PackWorldCoords(8,16), PackWorldCoords(8,0))
                 }
-            );
+            )
+            {
+                owner = this
+            };
+            this.attackBox.owner = this;
+
+            this.animation = this.idle;
         }
 
-        private static Animation idle = 
+        private Animation idle = 
             new Animation
             (
                 new (byte, Frame)[]
@@ -65,7 +74,7 @@ namespace TycheFighters
                     (15, new Frame(new List<Triangle>{})),
                 }, true
             );
-        private static Animation close = 
+        private Animation close = 
             new Animation
             (
                 new (byte, Frame)[]
@@ -161,7 +170,7 @@ namespace TycheFighters
                 }, false
             );
 
-        private static Animation spin = 
+        private Animation spin = 
             new Animation(
                 new (byte, Frame)[]
                 {
@@ -277,7 +286,7 @@ namespace TycheFighters
                 }, true
             );
 
-        private static Animation open =
+        private Animation open =
             new Animation
             (
                 new (byte, Frame)[]
@@ -373,6 +382,26 @@ namespace TycheFighters
                 }, false
             );
 
+        private Animation KO = new Animation
+        (
+            new (byte, Frame)[]
+            {
+                (0, new Frame(
+                        new List<Triangle>{
+                            // Box
+                            new Triangle(PackWorldCoords(24,0), PackWorldCoords(24,16), PackWorldCoords(8,16), 192),
+                            new Triangle(PackWorldCoords(24,0), PackWorldCoords(8,16), PackWorldCoords(8,0), 192),
+                            
+                            // Tape
+                            new Triangle(PackWorldCoords(24,6),PackWorldCoords(24,10),PackWorldCoords(20,10), 100),
+                            new Triangle(PackWorldCoords(12,6),PackWorldCoords(12,10),PackWorldCoords(8,10), 100),
+                            new Triangle(PackWorldCoords(8,6),PackWorldCoords(12,6),PackWorldCoords(8,10), 100),
+                            new Triangle(PackWorldCoords(20,6),PackWorldCoords(24,6),PackWorldCoords(20,10), 100),
+                        }
+                    ))
+            }
+        );
+
         private Collider attackBox = new Collider
                     (1,
                         new Triangle[]
@@ -390,10 +419,21 @@ namespace TycheFighters
                         }
                     );
 
-        public Animation animation = idle;
+        public Animation animation;
 
         public override void Update()
         {
+            base.Update();
+
+            if (knockedOut)
+            {
+                animation = KO;
+                animation.Start();
+                Fall();
+                currentFrame = animation.CurrentFrame();
+                animation.NextFrame();
+            }
+
             if (animation == close && animation.Finished())
             {
                 jumpFrame = 1;
@@ -441,7 +481,7 @@ namespace TycheFighters
 
         public override void ReadKeyboard(KeyboardState keyState)
         {
-            if (keyState.IsKeyPressed(Keys.W))
+            if (keyState.IsKeyPressed(id == 0 ? P1map[0] : P2map[0]))
             {
                 //Console.WriteLine(localRandom.Next(256));
                 if (jumpFrame == 0 && fallFrame == 0 && animation != close)
@@ -462,8 +502,10 @@ namespace TycheFighters
                 }
             }
 
-            if (keyState.IsKeyDown(Keys.A))
+            if (keyState.IsKeyDown(id == 0 ? P1map[1] : P2map[1]))
             {
+                flipped = true;
+
                 if (fallFrame > 0)
                 {
                     if ((byte)(position >> 8) >= jumpSpeed)
@@ -489,8 +531,10 @@ namespace TycheFighters
             }
         
 
-            if (keyState.IsKeyDown(Keys.D))
+            if (keyState.IsKeyDown(id == 0 ? P1map[2] : P2map[2]))
             {
+                flipped = false;
+                
                 if (fallFrame > 0)
                 {
                     if ((byte)(position >> 8) + width + jumpSpeed <= 255)
@@ -570,7 +614,6 @@ namespace TycheFighters
             }
         }
 
-        private byte fallFrame = 0;
         private ushort initFallPos;
 
         private void Fall()
