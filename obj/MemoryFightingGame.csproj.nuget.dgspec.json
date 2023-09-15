@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj": {}
+    "C:\\Users\\Aaron\\Documents\\GitHub\\Tyche_Fighters\\MemoryFightingGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj": {
+    "C:\\Users\\Aaron\\Documents\\GitHub\\Tyche_Fighters\\MemoryFightingGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
+        "projectUniqueName": "C:\\Users\\Aaron\\Documents\\GitHub\\Tyche_Fighters\\MemoryFightingGame.csproj",
         "projectName": "MemoryFightingGame",
-        "projectPath": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\MemoryFightingGame.csproj",
-        "packagesPath": "C:\\Users\\pielo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pielo\\Documents\\Tyche_Fighters\\obj\\",
+        "projectPath": "C:\\Users\\Aaron\\Documents\\GitHub\\Tyche_Fighters\\MemoryFightingGame.csproj",
+        "packagesPath": "C:\\Users\\Aaron\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Aaron\\Documents\\GitHub\\Tyche_Fighters\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\pielo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Aaron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
